@@ -82,7 +82,7 @@
   .ppn-cartons__tile[aria-pressed="true"] .ppn-cartons__tile-ico{background:#fff;color:var(--c-brand-strong)}
   .ppn-cartons__tile-ico .lucide{width:18px;height:18px}
   .ppn-cartons__tile-name{display:block;font-size:16px;font-weight:500;line-height:1.25}
-  .ppn-cartons__tile-sub{display:inline-block;font-size:13px;font-weight:600;color:var(--c-brand-strong);background:var(--c-brand-soft);border-radius:999px;padding:2px 8px;margin-top:4px}
+  .ppn-cartons__tile-sub{display:block;font-size:13px;color:var(--c-muted);margin-top:2px}
   .ppn-cartons__tile-txt{flex:1;min-width:0}
   .ppn-cartons__tile-add{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--c-line-strong);color:var(--c-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:all .15s}
   .ppn-cartons__tile-add .lucide{width:15px;height:15px}
@@ -90,6 +90,19 @@
   .ppn-cartons__tile[aria-pressed="true"] .ppn-cartons__tile-add{background:var(--c-brand);border-color:var(--c-brand);color:#fff}
   .ppn-cartons__opt-badge{margin-left:auto;font-size:12px;font-weight:600;color:var(--c-muted);background:var(--c-bg);border-radius:999px;padding:4px 10px}
   .ppn-cartons__text b{color:var(--c-text)}
+  .ppn-cartons__label--sp{margin-top:22px}
+  .ppn-cartons__opt-inline{font-weight:400;color:var(--c-soft)}
+  .ppn-cartons__furn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .ppn-cartons__furn-opt{position:relative;display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--c-line-strong);border-radius:10px;background:#fff;box-shadow:0 1px 3px rgba(27,25,77,.08);cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
+  .ppn-cartons__furn-opt input{position:absolute;opacity:0;pointer-events:none}
+  .ppn-cartons__furn-opt:hover{border-color:var(--c-brand)}
+  .ppn-cartons__furn-opt:has(input:checked){border-color:var(--c-brand);background:var(--c-brand-soft);box-shadow:0 0 0 1px var(--c-brand)}
+  .ppn-cartons__furn-opt:has(input:focus-visible){outline:2px solid var(--c-brand);outline-offset:2px}
+  .ppn-cartons__furn-ico{width:36px;height:36px;border-radius:8px;background:var(--c-grey-ico);color:var(--c-muted);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .ppn-cartons__furn-ico .lucide{width:18px;height:18px}
+  .ppn-cartons__furn-opt:has(input:checked) .ppn-cartons__furn-ico{background:#fff;color:var(--c-brand-strong)}
+  .ppn-cartons__furn-name{display:block;font-size:16px;font-weight:500;line-height:1.25}
+  .ppn-cartons__furn-sub{display:block;font-size:13px;color:var(--c-muted);margin-top:2px}
   .ppn-cartons__group{font-size:14px;font-weight:700;color:var(--c-text);margin:22px 0 10px}
   .ppn-cartons__added{margin-top:20px;padding:12px 16px;border-radius:8px;background:var(--c-bg);font-size:14px;color:var(--c-muted);text-align:center}
   .ppn-cartons__added.is-on{background:var(--c-brand-soft);color:var(--c-text)}
@@ -153,7 +166,7 @@
     .ppn-cartons__dot .lucide{width:18px;height:18px}
     .ppn-cartons__bar{width:32px;margin:0 6px}
     .ppn-cartons__card{padding:22px 16px}
-    .ppn-cartons__tiles{grid-template-columns:1fr;gap:10px}
+    .ppn-cartons__tiles,.ppn-cartons__furn{grid-template-columns:1fr;gap:10px}
     .ppn-cartons__tile{padding:12px 14px}
     .ppn-cartons__split{grid-template-columns:repeat(2,minmax(0,1fr))}
     .ppn-cartons__big{font-size:38px}
@@ -170,26 +183,28 @@
     <div class="ppn-cartons__steps" id="ppn-cartons-steps" aria-hidden="true">
       <span class="ppn-cartons__dot" data-dot="0" data-ico="house"></span><span class="ppn-cartons__bar"></span>
       <span class="ppn-cartons__dot" data-dot="1" data-ico="users"></span><span class="ppn-cartons__bar"></span>
-      <span class="ppn-cartons__dot" data-dot="2" data-ico="archive"></span><span class="ppn-cartons__bar"></span>
-      <span class="ppn-cartons__dot" data-dot="3" data-ico="clipboard-list"></span>
+      <span class="ppn-cartons__dot" data-dot="2" data-ico="archive"></span>
     </div>
   </header>
 
-  <!-- Étape 1 -->
+  <!-- Étape 1 : logement -->
   <section class="ppn-cartons__card ppn-cartons__screen" data-step="0">
-    <div class="ppn-cartons__card-head"><span class="ppn-cartons__ico"><i data-lucide="house"></i></span><h3 class="ppn-cartons__card-title">Taille du logement</h3></div>
-    <select class="ppn-cartons__select" id="ppn-cartons-rooms" aria-label="Taille du logement">
-      <option value="" selected disabled>Sélectionnez votre logement</option>
-      <option value="1">Studio (moins de 30 m²)</option>
-      <option value="2">T2 (30 à 50 m²)</option>
-      <option value="3">T3 (50 à 70 m²)</option>
-      <option value="4">T4 (70 à 90 m²)</option>
-      <option value="5">T5 (90 à 120 m²)</option>
-      <option value="6">Maison ou 6 pièces et plus</option>
-    </select>
+    <div class="ppn-cartons__card-head"><span class="ppn-cartons__ico"><i data-lucide="house"></i></span><h3 class="ppn-cartons__card-title">Votre logement actuel</h3></div>
+    <div class="ppn-cartons__furn" role="radiogroup" aria-label="Logement meublé ou non">
+      <label class="ppn-cartons__furn-opt"><input type="radio" name="ppn-cartons-furn" value="nm">
+        <span class="ppn-cartons__furn-ico"><i data-lucide="box"></i></span>
+        <span><span class="ppn-cartons__furn-name">Non meublé</span><span class="ppn-cartons__furn-sub">Vous emportez toutes vos affaires</span></span></label>
+      <label class="ppn-cartons__furn-opt"><input type="radio" name="ppn-cartons-furn" value="m">
+        <span class="ppn-cartons__furn-ico"><i data-lucide="sofa"></i></span>
+        <span><span class="ppn-cartons__furn-name">Meublé</span><span class="ppn-cartons__furn-sub">L'équipement reste sur place</span></span></label>
+    </div>
+    <div id="ppn-cartons-size-wrap" hidden>
+      <label class="ppn-cartons__label ppn-cartons__label--sp" for="ppn-cartons-rooms">Taille du logement</label>
+      <select class="ppn-cartons__select" id="ppn-cartons-rooms"></select>
+    </div>
   </section>
 
-  <!-- Étape 2 -->
+  <!-- Étape 2 : foyer -->
   <section class="ppn-cartons__card ppn-cartons__screen" data-step="1" hidden>
     <div class="ppn-cartons__card-head"><span class="ppn-cartons__ico"><i data-lucide="users"></i></span><h3 class="ppn-cartons__card-title">Votre foyer</h3></div>
     <select class="ppn-cartons__select" id="ppn-cartons-people" aria-label="Nombre de personnes">
@@ -198,33 +213,24 @@
       <option value="2">2 personnes</option>
       <option value="3">3 personnes</option>
       <option value="4">4 personnes</option>
-      <option value="5">5 personnes</option>
-      <option value="6">6 personnes et plus</option>
+      <option value="5">5 personnes et plus</option>
     </select>
+    <div id="ppn-cartons-amount-wrap">
+      <label class="ppn-cartons__label ppn-cartons__label--sp" for="ppn-cartons-amount">Quantité d'affaires <span class="ppn-cartons__opt-inline">(facultatif)</span></label>
+      <select class="ppn-cartons__select" id="ppn-cartons-amount">
+        <option value="1" selected>Dans la moyenne</option>
+        <option value="0.75">Peu d'affaires</option>
+        <option value="1.3">Beaucoup d'affaires</option>
+      </select>
+    </div>
   </section>
 
-  <!-- Étape 3 -->
+  <!-- Étape 3 : selon la branche -->
   <section class="ppn-cartons__card ppn-cartons__screen" data-step="2" hidden>
-    <div class="ppn-cartons__card-head"><span class="ppn-cartons__ico"><i data-lucide="archive"></i></span><h3 class="ppn-cartons__card-title">En plus de votre logement</h3><span class="ppn-cartons__opt-badge">Facultatif</span></div>
-    <p class="ppn-cartons__text">Les pièces principales sont déjà comptées. Cochez seulement ce que vous avez <b>en plus</b> : chaque élément ajoute des cartons à l'estimation.</p>
-    <p class="ppn-cartons__group">Espaces à vider en plus</p>
-    <div class="ppn-cartons__tiles" id="ppn-cartons-tiles-m"></div>
-    <p class="ppn-cartons__group">Beaucoup d'affaires de ce type</p>
-    <div class="ppn-cartons__tiles" id="ppn-cartons-tiles-s"></div>
-    <div class="ppn-cartons__added" id="ppn-cartons-added">Rien à ajouter ? Passez directement à l'étape suivante.</div>
-  </section>
-
-  <!-- Étape 4 -->
-  <section class="ppn-cartons__card ppn-cartons__screen" data-step="3" hidden>
-    <div class="ppn-cartons__card-head"><span class="ppn-cartons__ico"><i data-lucide="clipboard-list"></i></span><h3 class="ppn-cartons__card-title">Informations complémentaires (optionnel)</h3></div>
-    <p class="ppn-cartons__text">Précisez la quantité d'affaires pour affiner l'estimation.</p>
-    <label class="ppn-cartons__label" for="ppn-cartons-amount">Quantité d'affaires</label>
-    <select class="ppn-cartons__select" id="ppn-cartons-amount">
-      <option value="1" selected>Sélectionnez la quantité d'affaires</option>
-      <option value="0.75">Peu d'affaires (logement épuré)</option>
-      <option value="1">Dans la moyenne</option>
-      <option value="1.3">Beaucoup d'affaires</option>
-    </select>
+    <div class="ppn-cartons__card-head"><span class="ppn-cartons__ico"><i data-lucide="archive"></i></span><h3 class="ppn-cartons__card-title" id="ppn-cartons-s3-title"></h3><span class="ppn-cartons__opt-badge">Facultatif</span></div>
+    <p class="ppn-cartons__text" id="ppn-cartons-s3-text"></p>
+    <div id="ppn-cartons-s3-groups"></div>
+    <div class="ppn-cartons__added" id="ppn-cartons-added"></div>
   </section>
 
   <!-- Résultat -->
@@ -239,7 +245,7 @@
         <div class="ppn-cartons__cell"><strong id="ppn-cartons-l">0</strong><span>Grands</span><small>Linge, coussins</small></div>
         <div class="ppn-cartons__cell"><strong id="ppn-cartons-w">0</strong><span>Penderies</span><small>Vêtements</small></div>
       </div>
-      <p class="ppn-cartons__basis">Prévoyez aussi <b id="ppn-cartons-tape">0</b> rouleaux d'adhésif et un marqueur.</p>
+      <p class="ppn-cartons__basis">Prévoyez aussi <b id="ppn-cartons-tape">1 rouleau</b> d'adhésif et un marqueur.</p>
       <button type="button" class="ppn-cartons__btn ppn-cartons__btn--primary ppn-cartons__btn--block" id="ppn-cartons-restart"><i data-lucide="refresh-cw"></i>Recalculer</button>
     </section>
 
@@ -270,21 +276,49 @@
   var CTA_PHONE = '09 70 25 21 98';
   var CTA_COMPARE_URL = 'https://www.papernest.com/demarches-energie/comparateur/';
 
-  /* Espaces et affaires (cartons ajoutés) */
-  var EXTRAS = [
-    { id: 'cave',    name: 'Cave',              add: 8,  icon: 'archive',    type: 'm' },
-    { id: 'garage',  name: 'Garage',            add: 12, icon: 'car',        type: 'm' },
-    { id: 'grenier', name: 'Grenier',           add: 10, icon: 'box',        type: 'm' },
-    { id: 'ext',     name: 'Balcon ou jardin',  add: 4,  icon: 'flower-2',   type: 'm' },
-    { id: 'books',   name: 'Livres', add: 10, icon: 'book-open', type: 's' },
-    { id: 'kitchen', name: 'Vaisselle', add: 6, icon: 'utensils', type: 's' },
-    { id: 'clothes', name: 'Vêtements sur cintres', add: 0,  icon: 'shirt',      type: 'w' }
-  ];
+  /* Branches.
+     b (bucket) : g = réparti sur toutes les tailles, s = petits, m = moyens, l = grands, w = penderies ×2 */
+  var BRANCH = {
+    nm: {
+      sizes: [['1','Studio'],['2','T2'],['3','T3'],['4','T4'],['5','T5 et plus'],['6','Maison']],
+      base: function (r, p) { return 2 + r * 6 + p * 6; },
+      title: 'En plus de votre logement',
+      text: 'Les pièces principales sont déjà comptées. Cochez seulement ce que vous avez <b>en plus</b> : chaque élément sélectionné ajuste le nombre de cartons à prévoir.',
+      groups: [
+        { label: 'Espaces à vider en plus', items: [
+          { id: 'cave',    name: 'Cave',             sub: 'Outils, affaires stockées', icon: 'archive',  add: 6, b: 'g' },
+          { id: 'grenier', name: 'Grenier',          sub: 'Cartons stockés, déco',     icon: 'box',      add: 8, b: 'g' },
+          { id: 'ext',     name: 'Balcon ou jardin', sub: 'Pots, outils, déco',        icon: 'flower-2', add: 3, b: 'g' } ] },
+        { label: 'Beaucoup d\'affaires de ce type', items: [
+          { id: 'books',   name: 'Livres',                sub: 'Bibliothèque bien remplie', icon: 'book-open', add: 8, b: 's' },
+          { id: 'kitchen', name: 'Vaisselle',             sub: 'Cuisine très équipée',      icon: 'utensils',  add: 5, b: 's' },
+          { id: 'clothes', name: 'Vêtements sur cintres', sub: 'Garde-robe fournie',        icon: 'shirt',     add: 0, b: 'w' } ] }
+      ]
+    },
+    m: {
+      sizes: [['1','Studio'],['2','T2'],['3','T3 et plus']],
+      base: function (r, p) { return 2 + r + p * 5; },
+      title: 'Ce qui vous appartient',
+      text: 'Le mobilier et l\'équipement du logement restent sur place. Cochez seulement ce qui est <b>à vous</b> : chaque élément sélectionné ajuste le nombre de cartons à prévoir.',
+      groups: [
+        { label: 'Vos affaires', items: [
+          { id: 'kitchen', name: 'Vaisselle et ustensiles', sub: 'Assiettes, casseroles…',    icon: 'utensils',  add: 4, b: 's' },
+          { id: 'linen',   name: 'Linge de maison',         sub: 'Draps, serviettes…',        icon: 'bed',       add: 2, b: 'l' },
+          { id: 'appl',    name: 'Petit électroménager',    sub: 'Bouilloire, cafetière…',    icon: 'coffee',    add: 2, b: 'm' },
+          { id: 'deco',    name: 'Déco et objets',          sub: 'Cadres, plantes, lampes',   icon: 'lamp',      add: 3, b: 'm' },
+          { id: 'books',   name: 'Livres',                  sub: 'Bibliothèque bien remplie', icon: 'book-open', add: 5, b: 's' },
+          { id: 'clothes', name: 'Vêtements sur cintres',   sub: 'Garde-robe fournie',        icon: 'shirt',     add: 0, b: 'w' } ] },
+        { label: 'Espaces à vider en plus', items: [
+          { id: 'cave', name: 'Cave',             sub: 'Vélo, affaires stockées', icon: 'archive',  add: 4, b: 'g' },
+          { id: 'ext',  name: 'Balcon ou jardin', sub: 'Pots, déco extérieure',   icon: 'flower-2', add: 2, b: 'g' } ] }
+      ]
+    }
+  };
 
   /* Modèle */
-  var M = { fixed: 5, perRoom: 7, perPerson: 9, small: 0.35, large: 0.20, cartonsPerTape: 10 };
+  var M = { small: 0.35, large: 0.20, cartonsPerTape: 20 };
 
-  var step = 0, picked = {};
+  var step = 0, picked = {}, branch = null;
   var rooms = document.getElementById('ppn-cartons-rooms');
   var people = document.getElementById('ppn-cartons-people');
   var amount = document.getElementById('ppn-cartons-amount');
@@ -292,31 +326,51 @@
   /* Icônes du stepper */
   root.querySelectorAll('[data-dot]').forEach(function (d) { d.innerHTML = '<i data-lucide="' + d.dataset.ico + '"></i>'; });
 
-  /* Tuiles */
-  function tile(x) {
-    var sub = x.type === 'w' ? '+ penderies' : '+ ' + x.add + ' cartons';
-    return '<button type="button" class="ppn-cartons__tile" aria-pressed="false" data-x="' + x.id + '">' +
-      '<span class="ppn-cartons__tile-ico"><i data-lucide="' + x.icon + '"></i></span>' +
-      '<span class="ppn-cartons__tile-txt"><span class="ppn-cartons__tile-name">' + x.name + '</span><span class="ppn-cartons__tile-sub">' + sub + '</span></span>' +
-      '<span class="ppn-cartons__tile-add"><i data-lucide="plus"></i></span></button>';
-  }
-  document.getElementById('ppn-cartons-tiles-m').innerHTML = EXTRAS.filter(function (x) { return x.type === 'm'; }).map(tile).join('');
-  document.getElementById('ppn-cartons-tiles-s').innerHTML = EXTRAS.filter(function (x) { return x.type !== 'm'; }).map(tile).join('');
-  root.querySelectorAll('.ppn-cartons__tile').forEach(function (t) {
-    t.addEventListener('click', function () {
-      picked[t.dataset.x] = !picked[t.dataset.x];
-      t.setAttribute('aria-pressed', picked[t.dataset.x] ? 'true' : 'false');
-      t.querySelector('.ppn-cartons__tile-add').innerHTML = '<i data-lucide="' + (picked[t.dataset.x] ? 'check' : 'plus') + '"></i>';
-      if (window.lucide) lucide.createIcons();
-      syncAdded();
+  /* Étape 1 : choix meublé / non meublé */
+  root.querySelectorAll('input[name="ppn-cartons-furn"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var prevVal = rooms.value;
+      branch = r.value; picked = {};
+      rooms.innerHTML = '<option value="" selected disabled>Sélectionnez la taille</option>' +
+        BRANCH[branch].sizes.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join('');
+      if (prevVal && rooms.querySelector('option[value="' + prevVal + '"]')) rooms.value = prevVal;
+      document.getElementById('ppn-cartons-size-wrap').hidden = false;
+      next.disabled = !valid();
+      postHeight();
     });
   });
+
+  /* Étape 3 : tuiles selon la branche */
+  function allItems() { var a = []; BRANCH[branch].groups.forEach(function (g) { a = a.concat(g.items); }); return a; }
+  function buildStep3() {
+    var B = BRANCH[branch];
+    document.getElementById('ppn-cartons-s3-title').textContent = B.title;
+    document.getElementById('ppn-cartons-s3-text').innerHTML = B.text;
+    document.getElementById('ppn-cartons-s3-groups').innerHTML = B.groups.map(function (g) {
+      return (g.label ? '<p class="ppn-cartons__group">' + g.label + '</p>' : '') +
+        '<div class="ppn-cartons__tiles">' + g.items.map(function (x) {
+          var on = !!picked[x.id];
+          return '<button type="button" class="ppn-cartons__tile" aria-pressed="' + on + '" data-x="' + x.id + '">' +
+            '<span class="ppn-cartons__tile-ico"><i data-lucide="' + x.icon + '"></i></span>' +
+            '<span class="ppn-cartons__tile-txt"><span class="ppn-cartons__tile-name">' + x.name + '</span><span class="ppn-cartons__tile-sub">' + x.sub + '</span></span>' +
+            '<span class="ppn-cartons__tile-add"><i data-lucide="' + (on ? 'check' : 'plus') + '"></i></span></button>';
+        }).join('') + '</div>';
+    }).join('');
+    root.querySelectorAll('.ppn-cartons__tile').forEach(function (t) {
+      t.addEventListener('click', function () {
+        picked[t.dataset.x] = !picked[t.dataset.x];
+        t.setAttribute('aria-pressed', picked[t.dataset.x] ? 'true' : 'false');
+        t.querySelector('.ppn-cartons__tile-add').innerHTML = '<i data-lucide="' + (picked[t.dataset.x] ? 'check' : 'plus') + '"></i>';
+        if (window.lucide) lucide.createIcons();
+        syncAdded();
+      });
+    });
+    syncAdded();
+  }
   function syncAdded() {
-    var n = 0, any = false, el = document.getElementById('ppn-cartons-added');
-    EXTRAS.forEach(function (x) { if (picked[x.id]) { any = true; n += x.type === 'w' ? (+people.value || 1) : x.add; } });
-    el.classList.toggle('is-on', any);
-    el.innerHTML = any ? 'Vos ajouts : <b>+ ' + n + ' cartons</b> environ' : 'Rien à ajouter ? Passez directement à l\'étape suivante.';
-    if (step === 2) next.textContent = any ? 'Suivant' : 'Passer';
+    var n = allItems().filter(function (x) { return picked[x.id]; }).length, el = document.getElementById('ppn-cartons-added');
+    el.classList.toggle('is-on', n > 0);
+    el.innerHTML = n ? '<b>' + n + ' élément' + (n > 1 ? 's' : '') + '</b> ajouté' + (n > 1 ? 's' : '') + ' : le nombre de cartons est ajusté' : 'Rien à ajouter ? Vous pouvez finaliser directement.';
   }
 
   /* Barre de navigation, insérée dans la carte active */
@@ -327,7 +381,7 @@
   var prev = nav.querySelector('#ppn-cartons-prev'), next = nav.querySelector('#ppn-cartons-next');
 
   function valid() {
-    if (step === 0) return !!rooms.value;
+    if (step === 0) return !!branch && !!rooms.value;
     if (step === 1) return !!people.value;
     return true;
   }
@@ -339,8 +393,9 @@
     if (s !== 'result') {
       root.querySelector('[data-step="' + s + '"]').appendChild(nav);
       prev.disabled = s === 0;
-      next.textContent = s === 3 ? 'Finaliser' : 'Suivant';
-      if (s === 2) syncAdded();
+      next.textContent = s === 2 ? 'Finaliser' : 'Suivant';
+      if (s === 1) document.getElementById('ppn-cartons-amount-wrap').hidden = branch !== 'nm';
+      if (s === 2) buildStep3();
       next.disabled = !valid();
       root.querySelectorAll('[data-dot]').forEach(function (d) {
         var i = +d.dataset.dot;
@@ -360,28 +415,29 @@
   prev.addEventListener('click', function () { if (step > 0) show(step - 1); });
   next.addEventListener('click', function () {
     if (!valid()) return;
-    if (step < 3) show(step + 1); else { render(); show('result'); }
+    if (step < 2) show(step + 1); else { render(); show('result'); }
   });
   document.getElementById('ppn-cartons-restart').addEventListener('click', function () {
-    rooms.value = ''; people.value = ''; amount.value = '1'; picked = {};
-    root.querySelectorAll('.ppn-cartons__tile').forEach(function (t) { t.setAttribute('aria-pressed', 'false'); t.querySelector('.ppn-cartons__tile-add').innerHTML = '<i data-lucide="plus"></i>'; });
+    branch = null; picked = {}; people.value = ''; amount.value = '1';
+    root.querySelectorAll('input[name="ppn-cartons-furn"]').forEach(function (r) { r.checked = false; });
+    rooms.innerHTML = ''; document.getElementById('ppn-cartons-size-wrap').hidden = true;
     show(0);
   });
 
   /* Calcul */
   function render() {
-    var r = +rooms.value, p = +people.value, k = +amount.value || 1;
-    var base = M.fixed + r * M.perRoom + p * M.perPerson;
-    var s = 0;
-    EXTRAS.forEach(function (x) { if (picked[x.id]) { if (x.type === 'm') base += x.add; if (x.type === 's') s += x.add; } });
-    var general = Math.round(base * k);
-    var sm = Math.round(general * M.small), l = Math.round(general * M.large), m = general - sm - l;
-    sm += s;
+    var B = BRANCH[branch], r = +rooms.value, p = +people.value;
+    var k = branch === 'nm' ? (+amount.value || 1) : 1;
+    var g = B.base(r, p), add = { s: 0, m: 0, l: 0 };
+    allItems().forEach(function (x) { if (picked[x.id]) { if (x.b === 'g') g += x.add; else if (add[x.b] !== undefined) add[x.b] += x.add; } });
+    g = Math.round(g * k);
+    var sm = Math.round(g * M.small), l = Math.round(g * M.large), m = g - sm - l;
+    sm += add.s; m += add.m; l += add.l;
     var w = p * (picked.clothes ? 2 : 1);
-    var total = sm + m + l + w;
+    var total = sm + m + l + w, tape = Math.max(1, Math.ceil(total / M.cartonsPerTape));
     set('ppn-cartons-total', total);
     set('ppn-cartons-s', sm); set('ppn-cartons-m', m); set('ppn-cartons-l', l); set('ppn-cartons-w', w);
-    set('ppn-cartons-tape', Math.ceil(total / M.cartonsPerTape));
+    set('ppn-cartons-tape', tape + (tape > 1 ? ' rouleaux' : ' rouleau'));
   }
   function set(id, v) { document.getElementById(id).textContent = v; }
 
